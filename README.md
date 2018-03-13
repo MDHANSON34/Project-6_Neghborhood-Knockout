@@ -1,33 +1,16 @@
 # Project-6_Neghborhood-Knockout
 
-View the map here>>  mdhanson34.github.io
+Goal: Develop a single-page application featuring a map of a "neighborhood" you would like to visit. You will then add additional functionality to this application, including: map markers to identify popular locations or places you’d like to visit, a search function to easily discover these locations, and a listview to support simple browsing of all locations. You will then research and implement third-party APIs that provide additional information about each of these locations (such as StreetView images, Wikipedia articles, Yelp reviews, etc)
 
+### Installation:
 
+Download the .zip file and double click index.html.  You will need to have access to a working internet connection for the application to work properly.  
 
+### About:
 
+This application features a map of Yosemite and highlights some of my favoirte places!  I hope it is used to help plan YOUR next trip to Yosemite National Park.
 
-Goal: Optimize index.html to achieve a score of >90 on PageSpeedInsights
-
-#### Part 1: Optimize PageSpeed Insights score for index.html
-
-Optimizations made to index.html:
-
-1)Resize and Compression of images
-2)Inline CSS style
-3)Used Minify techniques
-
-#### Part 2: Optimize Frames per Second in pizza.html
-
-Goal: To optimize views/js/main.js until views/pizza.html frames per second rate is 60 fps or higher.
-
-Optimizations made to views/js/main.js:
-
-1)536-546
-    Refined the number of pizzas rendered on the page to be set equal to a percentage of the page size rather than a default 200
-2)451-461
-    -Pulled out unnecessary calculations in the For loop
-    -Set up PizzaElements as a variable to modify by class name ("randomPizzaContainer")
-    -Pulled out the dx and newwidth variables from for loop to avoid unnecessary recalculations
-3)507-514
-    -set up "items" as a variable and call by class name
-    -remove variable "scrollTop" from loop to avoid unnecessary duplication in loop
+### References:
+- http://knockoutjs.com/index.html
+- https://developers.google.com/maps/
+- https://classroom.udacity.com/
