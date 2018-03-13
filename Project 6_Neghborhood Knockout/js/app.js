@@ -112,6 +112,7 @@
     // mouses over the marker.
     var highlightedIcon = makeMarkerIcon('FFFF24');
     // The following group uses the location array to create an array of markers on initialize.
+
     for (var i = 0; i < locations.length; i++) {
       // Get the position from the location array.
       var position = locations[i].location;
@@ -127,23 +128,25 @@
       // Push the marker to our array of markers.
       markers.push(marker);
       // Create an onclick event to open the large infowindow at each marker.
-      marker.addListener('click', function() {
-        populateInfoWindow(this, largeInfowindow);
-      });
-      // Two event listeners - one for mouseover, one for mouseout,
-      // to change the colors back and forth.
-      marker.addListener('mouseover', function() {
-        this.setIcon(highlightedIcon);
-      });
-      marker.addListener('mouseout', function() {
-        this.setIcon(defaultIcon);
-      });
-    }
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', function() {
-      hideMarkers(markers);
+   marker.addListener('click', function() {
+      populateInfoWindow(this, largeInfowindow);
+    });
+    // Two event listeners - one for mouseover, one for mouseout,
+    // to change the colors back and forth.
+    marker.addListener('mouseover', function() {
+      this.setIcon(highlightedIcon);
+    });
+    marker.addListener('mouseout', function() {
+      this.setIcon(defaultIcon);
     });
   }
+}
+
+  document.getElementById('show-listings').addEventListener('click', showListings);
+  document.getElementById('hide-listings').addEventListener('click', function() {
+    hideMarkers(markers);
+  });
+
   // This function populates the infowindow when the marker is clicked. We'll only allow
   // one infowindow which will open at the marker that is clicked, and populate based
   // on that markers position.
@@ -157,6 +160,7 @@
       infowindow.addListener('closeclick', function() {
         infowindow.marker = null;
       });
+    }
       var streetViewService = new google.maps.StreetViewService();
       var radius = 50;
       // In case the status is OK, which means the pano was found, compute the
@@ -188,7 +192,6 @@
       // Open the infowindow on the correct marker.
       infowindow.open(map, marker);
     }
-  }
   // This function will loop through the markers array and display them all.
   function showListings() {
     var bounds = new google.maps.LatLngBounds();
@@ -264,6 +267,6 @@
     if (markers[5].getAnimation() !== null) {
       markers[5].setAnimation(null);
     } else {
-      markers[5].setAnimation(google.maps.Animation.BOUNCE)
+      markers[5].setAnimation(google.maps.Animation.BOUNCE);
     }
   }
