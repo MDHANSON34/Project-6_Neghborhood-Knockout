@@ -15,17 +15,16 @@
       <div class="options-box">
         <h1>Plan Your Trip</h1>
         <div>
-          <input id="show-listings" type="button" value="Show All Landmarks">
-          <input id="hide-listings" type="button" value="Hide All Landmarks">
+          <input id="show-listings" type="button" value="Show All Landmarks" style="background-color: #98AFC7">
+          <input id="hide-listings" type="button" value="Hide All Landmarks" style="background-color: #98AFC7">
         </div>
-        <hr>
-      <div class="vertical-menu">
-        <a>Half Dome</a>
-        <a>Yosemite Falls</a>
-        <a>Glacier Point</a>
-        <a>Sentinel Dome</a>
-        <a>El Capitan</a>
-        <a>Clouds Rest</a>
+        <div class="vertical-menu">
+        <p><button class="block" onclick="toggleBounce0()">Half Dome</button></p>
+        <p><button class="block" onclick="toggleBounce1()">Yosemite Falls</button></p>
+        <p><button class="block" onclick="toggleBounce2()">Glacier Point</button></p>
+        <p><button class="block" onclick="toggleBounce3()">Sentinel Dome</button></p>
+        <p><button class="block" onclick="toggleBounce4()">El Capitan</button></p>
+        <p><button class="block" onclick="toggleBounce5()">Clouds Rest</button></p>
       </div>
       </div>
       <div id="map"></div>
@@ -44,8 +43,7 @@
 
     <script async defer
         src=
-        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&udacity-map-project-196921&v=3&callback=initMap">
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyC4u8EzDcSumxMrMcyj_4GqPnmA3JbxErc&v=3&callback=initMap">
     </script>
-
   </body>
 </html>

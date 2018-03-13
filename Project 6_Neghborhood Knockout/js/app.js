@@ -4,87 +4,104 @@
   // Create placemarkers array to use in multiple functions to have control
   // over the number of places that show.
   var placeMarkers = [];
+
   function initMap() {
     // Create a styles array to use with the map.
-    var styles = [
-      {
-        featureType: 'water',
-        stylers: [
-          { color: '#19a0d8' }
-        ]
-      },{
-        featureType: 'administrative',
-        elementType: 'labels.text.stroke',
-        stylers: [
-          { color: '#ffffff' },
-          { weight: 6 }
-        ]
-      },{
-        featureType: 'administrative',
-        elementType: 'labels.text.fill',
-        stylers: [
-          { color: '#e85113' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [
-          { color: '#efe9e4' },
-          { lightness: -40 }
-        ]
-      },{
-        featureType: 'transit.station',
-        stylers: [
-          { weight: 9 },
-          { hue: '#e85113' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'labels.icon',
-        stylers: [
-          { visibility: 'off' }
-        ]
-      },{
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [
-          { lightness: 100 }
-        ]
-      },{
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [
-          { lightness: -100 }
-        ]
-      },{
-        featureType: 'poi',
-        elementType: 'geometry',
-        stylers: [
-          { visibility: 'on' },
-          { color: '#f0e4d3' }
-        ]
-      },{
-        featureType: 'road.highway',
-        elementType: 'geometry.fill',
-        stylers: [
-          { color: '#efe9e4' },
-          { lightness: -25 }
-        ]
-      }
-    ];
+    var styles = [{
+      featureType: 'water',
+      stylers: [{
+        color: '#19a0d8'
+      }]
+    }, {
+      featureType: 'administrative',
+      elementType: 'labels.text.stroke',
+      stylers: [{
+          color: '#ffffff'
+        },
+        {
+          weight: 6
+        }
+      ]
+    }, {
+      featureType: 'administrative',
+      elementType: 'labels.text.fill',
+      stylers: [{
+        color: '#e85113'
+      }]
+    }, {
+      featureType: 'road.highway',
+      elementType: 'geometry.stroke',
+      stylers: [{
+          color: '#efe9e4'
+        },
+        {
+          lightness: -40
+        }
+      ]
+    }, {
+      featureType: 'transit.station',
+      stylers: [{
+          weight: 9
+        },
+        {
+          hue: '#e85113'
+        }
+      ]
+    }, {
+      featureType: 'road.highway',
+      elementType: 'labels.icon',
+      stylers: [{
+        visibility: 'off'
+      }]
+    }, {
+      featureType: 'water',
+      elementType: 'labels.text.stroke',
+      stylers: [{
+        lightness: 100
+      }]
+    }, {
+      featureType: 'water',
+      elementType: 'labels.text.fill',
+      stylers: [{
+        lightness: -100
+      }]
+    }, {
+      featureType: 'poi',
+      elementType: 'geometry',
+      stylers: [{
+          visibility: 'on'
+        },
+        {
+          color: '#f0e4d3'
+        }
+      ]
+    }, {
+      featureType: 'road.highway',
+      elementType: 'geometry.fill',
+      stylers: [{
+          color: '#efe9e4'
+        },
+        {
+          lightness: -25
+        }
+      ]
+    }];
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 37.743333, lng: -119.575833},
+      center: {
+        lat: 37.743333,
+        lng: -119.575833
+      },
       zoom: 12,
       styles: styles,
       mapTypeControl: false
     });
     // This autocomplete is for use in the search within time entry box.
     var timeAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('search-within-time-text'));
+      document.getElementById('search-within-time-text'));
     // This autocomplete is for use in the geocoder entry box.
     var zoomAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('zoom-to-area-text'));
+      document.getElementById('zoom-to-area-text'));
     // Bias the boundaries within the map for the zoom to area text.
     zoomAutocomplete.bindTo('bounds', map);
     // Normally we'd have these in a database instead.
@@ -150,14 +167,14 @@
           var nearStreetViewLocation = data.location.latLng;
           var heading = google.maps.geometry.spherical.computeHeading(
             nearStreetViewLocation, marker.position);
-            infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-            var panoramaOptions = {
-              position: nearStreetViewLocation,
-              pov: {
-                heading: heading,
-                pitch: 30
-              }
-            };
+          infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+          var panoramaOptions = {
+            position: nearStreetViewLocation,
+            pov: {
+              heading: heading,
+              pitch: 30
+            }
+          };
           var panorama = new google.maps.StreetViewPanorama(
             document.getElementById('pano'), panoramaOptions);
         } else {
@@ -193,11 +210,60 @@
   // of 0, 0 and be anchored at 10, 34).
   function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
-      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
       '|40|_|%E2%80%A2',
       new google.maps.Size(21, 34),
       new google.maps.Point(0, 0),
       new google.maps.Point(10, 34),
-      new google.maps.Size(21,34));
+      new google.maps.Size(21, 34));
     return markerImage;
+  }
+
+  //make marker bounce if "clicked" on sidebar
+  function toggleBounce0() {
+    if (markers[0].getAnimation() !== null) {
+      markers[0].setAnimation(null);
+    } else {
+      markers[0].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function toggleBounce1() {
+    if (markers[1].getAnimation() !== null) {
+      markers[1].setAnimation(null);
+    } else {
+      markers[1].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function toggleBounce2() {
+    if (markers[2].getAnimation() !== null) {
+      markers[2].setAnimation(null);
+    } else {
+      markers[2].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function toggleBounce3() {
+    if (markers[3].getAnimation() !== null) {
+      markers[3].setAnimation(null);
+    } else {
+      markers[3].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function toggleBounce4() {
+    if (markers[4].getAnimation() !== null) {
+      markers[4].setAnimation(null);
+    } else {
+      markers[4].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  function toggleBounce5() {
+    if (markers[5].getAnimation() !== null) {
+      markers[5].setAnimation(null);
+    } else {
+      markers[5].setAnimation(google.maps.Animation.BOUNCE)
+    }
   }
