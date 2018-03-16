@@ -87,7 +87,7 @@
       ]
     }];
     // Constructor creates a new map - only center and zoom are required.
-    map = new google.maps.Map(document.getElementById('map'), {
+map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: 37.743333,
         lng: -119.575833
@@ -96,6 +96,7 @@
       styles: styles,
       mapTypeControl: false
     });
+
     // This autocomplete is for use in the search within time entry box.
     var timeAutocomplete = new google.maps.places.Autocomplete(
       document.getElementById('search-within-time-text'));
@@ -113,7 +114,7 @@
     var highlightedIcon = makeMarkerIcon('FFFF24');
     // The following group uses the location array to create an array of markers on initialize.
 
-    for (var i = 0; i < locations.length; i++) {
+      for (var i = 0; i < locations.length; i++) {
       // Get the position from the location array.
       var position = locations[i].location;
       var title = locations[i].title;
@@ -126,8 +127,9 @@
         id: i
       });
       // Push the marker to our array of markers.
-      markers.push(marker);
+   markers.push(marker);
       // Create an onclick event to open the large infowindow at each marker.
+/* jshint ignore:start */
    marker.addListener('click', function() {
       populateInfoWindow(this, largeInfowindow);
     });
@@ -139,6 +141,7 @@
     marker.addListener('mouseout', function() {
       this.setIcon(defaultIcon);
     });
+/* jshint ignore:end */
   }
 }
 
@@ -270,3 +273,9 @@
       markers[5].setAnimation(google.maps.Animation.BOUNCE);
     }
   }
+
+  googleError = function googleError() {
+        alert(
+            'It looks like Google Maps faild to load. Please refresh the page and try again!'
+        );
+    };
