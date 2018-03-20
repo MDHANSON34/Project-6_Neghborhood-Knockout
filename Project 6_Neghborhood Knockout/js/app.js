@@ -71,36 +71,47 @@ function initMap() {
 
 
 
-    for (i=0; i<markers.length; i++){
+     var largeInfowindow = new google.maps.InfoWindow();
+
+    for (i=0; i< markers.length; i++){
         var markerInfo = (function(markers){
             var marker = new google.maps.Marker({
                 title: markers.title,
                 position: markers.position,
                 id: markers.id,
-                map: map
+                map: map,
             });
             marker.setAnimation(null);
             marker.addListener('click', function() {
                 toggleMarker(marker);
             });
+
+//Add weather to Infowindow using weather API
+
+        var infoWindowContent = 'api.openweathermap.org/data/2.5/weather?lat=' + markers.position.lat + '&lon=' + markers.position.lng
+         var infowindow = new google.maps.InfoWindow({
+                content: infoWindowContent
+                });
+          marker.addListener('click', function() {
+                infowindow.open(map,marker);
+                });
+
             allMarkers.push(marker);
         })(markers[i]);
-    };
+};
 
 this.toggleMarker = function(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(){ marker.setAnimation(null); }, 2500);
+//        weatherAPI(marker);
     };
 
-//Add Infowindow to the site
-  var infowindow = new google.maps.InfoWindow({
-      content:"Hello World!"
-      });
-
-  google.maps.event.addListener(markers, 'click', function() {
-      infowindow.open(map,markers);
-      });
-   }
+  this.infoContent = function(content, marker) {
+  var title = '<div class=infowindow id="infowindow"><div id=title><b>' + marker.title + '</b></div></div>';
+  infowindow.setContent(title + content);
+  infowindow.open(map, marker);
+  }
+};
 
 
     function makeMarkerIcon(markerColor) {
@@ -121,6 +132,8 @@ googleError = function googleError() {
           'It looks like Google Maps faild to load. Please refresh the page and try again!'
       );
   };
+
+
 
 //replace all function
 String.prototype.replaceAll = function(target, replacement) {
