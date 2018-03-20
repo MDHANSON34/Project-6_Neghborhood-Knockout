@@ -15,3 +15,4 @@ This application features a map of Yosemite and highlights some of my favoirte p
 - https://developers.google.com/maps/
 - https://classroom.udacity.com/
 - http://api.openweathermap.org
+- https://jquery.com/

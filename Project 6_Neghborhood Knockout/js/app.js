@@ -110,7 +110,7 @@ var infowindow = new google.maps.InfoWindow({
 
 this.toggleMarker = function(marker) {
  marker.setAnimation(google.maps.Animation.BOUNCE);
- setTimeout(function(){ marker.setAnimation(null); }, 2100);
+ setTimeout(function(){ marker.setAnimation(null); }, 750);
  infowindow.open(map,marker);
  };
 }
