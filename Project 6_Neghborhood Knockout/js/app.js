@@ -56,6 +56,7 @@ this.toggleListBounce = function(s) {
  for (i=0; i<allMarkers.length; i++) {
      if (allMarkers[i].title === s.title) {
          toggleMarker(allMarkers[i]);
+
      }
  }
 };
@@ -71,12 +72,7 @@ zoom: 12
 });
 
 
-
-var largeInfowindow = new google.maps.InfoWindow();
-
 /* jshint ignore:start */
-
-/* jshint ignore:end */
 for (i=0; i< markers.length; i++){
  var markerInfo = (function(markers){
      var marker = new google.maps.Marker({
@@ -93,28 +89,31 @@ for (i=0; i< markers.length; i++){
 
 //Add weather to Infowindow using api.openweathermap.org API
 
- var infoWindowContent = 'api.openweathermap.org/data/2.5/weather?lat=' + markers.position.lat + '&lon=' + markers.position.lng + '&appid=78eb44935b7c2017c09edb14810ea90f&units=imperial';
-
- var infowindow = new google.maps.InfoWindow({
-         content: infoWindowContent
-         });
+ var infowindowContent = getTemp(markers.position.lat, markers.position.lng)
  marker.addListener('click', function() {
          infowindow.open(map,marker);
          });
-
      allMarkers.push(marker);
  })(markers[i]);
 
 }
 
+//NEED TO APPEND API WEATHER DATA FROM OPENWEATHERMAP.ORG
+
+var infowindow = new google.maps.InfoWindow({
+  content: 'DISPLAY CURRENT WEATHER HERE'
+});
+
+
+
 /* jshint ignore:end */
 
 this.toggleMarker = function(marker) {
  marker.setAnimation(google.maps.Animation.BOUNCE);
- setTimeout(function(){ marker.setAnimation(null); }, 2500);
-};
+ setTimeout(function(){ marker.setAnimation(null); }, 2100);
+ infowindow.open(map,marker);
+ };
 }
-
 
 
 function makeMarkerIcon(markerColor) {
@@ -128,6 +127,31 @@ var markerImage = new google.maps.MarkerImage(
 return markerImage;
 }
 
+
+function getTemp(latitude, longitude) {
+            $.ajax({
+                url: "http://api.openweathermap.org/data/2.5/weather",
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    lat: latitude,
+                    lon: longitude,
+                    APPID: "78eb44935b7c2017c09edb14810ea90f",
+                    units: 'imperial'
+
+                },
+                success: function(data) {
+                    temp = data.main.temp;
+                    console.log(data);
+                    console.log(temp);
+
+                    },
+                error: function(data, textStatus, errorThrown) {
+                    //Do Something to handle error
+                    console.log(textStatus);
+                }
+            });
+      }
 
 //error message if google map api not displaying correctly
 googleError = function googleError() {
